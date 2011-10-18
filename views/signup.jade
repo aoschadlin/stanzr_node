@@ -1,0 +1,17 @@
+.displayText Registration
+form(method='post', action='/signup')
+    div
+        fieldset
+            legend
+                span.legendText Your login details
+            .field
+                label(for="user[email]") Email:
+                input(type="text", id="signup_name", name="user[email]", value=user.email)
+            .field
+                label(for="user[password]") Password:
+                input(type="password", id="signup_pwd", name="user[password]", value=user.password)
+            .field
+                label(for="user[confirm]") Confirm:
+                input(type="password", id="signup_confirm", name="user[confirm]", value=user.confirm)
+        p.buttons
+            input(type="submit", id="signup_btn", value="Save")

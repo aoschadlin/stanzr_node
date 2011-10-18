@@ -1,0 +1,32 @@
+.displayText Registration
+form(method='post', action='/register')
+    div
+        fieldset
+            legend
+                span.legendText Company
+            .field
+                label(for="company[name]") Name:
+                input(type="text", name="company[name]", value=company.name)
+            .field
+                label(for="company[email]") Email:
+                input(type="text", name="company[email]", value=company.email)
+            .field
+                label(for="company[logo]") Logo:
+                input(type="text", name="company[logo]", value=company.logo)
+            .field
+                label(for="company[description]") Description:
+                input(type="text", name="company[description]", value=company.description)
+        fieldset
+            legend
+                span.legendText Default user
+            .field
+                label(for="user[email]") Email:
+                input(type="text", name="user[email]", value=user.email)
+            .field
+                label(for="user[password]") Password:
+                input(type="password", name="user[password]", value=user.password)
+            .field
+                label(for="user[confirm]") Confirm:
+                input(type="password", name="user[confirm]", value=user.confirm)
+        p.buttons
+            input(type="submit", value="Save")

@@ -1,0 +1,22 @@
+!!! 5
+html
+  head
+    title= 'Stanzr'
+    link(rel='stylesheet', href='/stylesheets/custom.css')
+    block scripts
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
+      script(src='/javascripts/custom.js')
+  #container
+    #header
+      span#headLogo
+        <a href='http://blog.stanzr.com' class='blindlink'><em>powered by</em> Stanzr</a>
+      span#headLinks
+        - if (session.logged_in)
+          <a href="/signout">Sign out</a>
+        - else
+          <a href="/signin">Sign in</a>
+          <a href="/signup">Sign up</a>
+    .content.round
+      body!= body
+    .footer
+      span.copytext Copyright &copy; 2011 Stanzr

@@ -1,0 +1,6 @@
+.textTitle
+    | Channel list
+each channel, id in channels
+    div
+        <a href="/ch/#{id}">#{channel.name}</a>
+<a href="/add_conversation" class="pretty_button_sml">Add conversation</a>

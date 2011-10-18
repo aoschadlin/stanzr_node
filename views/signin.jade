@@ -1,0 +1,14 @@
+.displayText Sign in
+form(method='post', action='/signin')
+    div
+        fieldset
+            legend
+                span.legendText Your login details
+            .field
+                label(for="user[email]") Email:
+                input(type="text", id="signin_name", name="user[email]", value=user.email)
+            .field
+                label(for="user[password]") Password:
+                input(type="password", id="signin_pwd", name="user[password]", value=user.password)
+        p.buttons
+            input(type="submit", id="signin_btn", value="Sign in")

@@ -1,0 +1,183 @@
+html, body, ul, ol, li, form, fieldset, legend
+{
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 980px;
+    margin: 0 auto;
+}
+
+#header {
+    background-color: #3399CC;
+    height: 30px;
+    width: 100%;
+}
+
+#headLogo {
+    padding: 5px;
+    text-align: left;
+    color: white;
+    font-size: 0.75em;
+}
+
+#headLinks {
+    padding: 5px;
+    text-align: right;
+    color: white;
+    font-size: 0.75em;
+    float: right;
+}
+
+#topnav {
+    float: right;
+    list-style-type: none;
+    margin: 10px 5px;
+}
+
+navgroup-alone a {
+    border-radius: 4px 4px 4px 4px;
+}
+
+.content {
+    margin: 5px 0px 5px 0px;
+    background-color: rgb(245, 245, 250);
+}
+
+.userChoice {
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.pretty_button_lge {
+    font-size: 30px;
+    padding: 5px 10px 6px 10px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    color: #888;
+    background: rgb(254,255,232);
+    background: -moz-linear-gradient(top, rgb(254,255,232) 0%, rgb(214,219,191) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(254,255,232)), color-stop(100%,rgb(214,219,191)));
+    background: -webkit-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    background: -o-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    background: -ms-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#d6dbbf',GradientType=0 );
+    background: linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);  text-decoration: none;
+}
+
+.pretty_button_lge:link, .pretty_button_lge:hover, .pretty_button_lge:active, .pretty_button_lge:visited {
+  text-decoration: none;
+}
+
+.pretty_button_sml {
+    font-size: 15px;
+    padding: 5px 10px 6px 10px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    color: #888;
+    background: rgb(254,255,232);
+    background: -moz-linear-gradient(top, rgb(254,255,232) 0%, rgb(214,219,191) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(254,255,232)), color-stop(100%,rgb(214,219,191)));
+    background: -webkit-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    background: -o-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    background: -ms-linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#d6dbbf',GradientType=0 );
+    background: linear-gradient(top, rgb(254,255,232) 0%,rgb(214,219,191) 100%);  text-decoration: none;
+}
+
+.pretty_button_sml:link, .pretty_button_sml:hover, .pretty_button_sml:active, .pretty_button_sml:visited {
+  text-decoration: none;
+}
+
+.blindlink:link, .blindlink:hover, .blindlink:active, .blindlink:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.displayText {
+    text-align: center;
+    font-size: 30px;
+    color: #666;
+}
+
+.displayTextTitle {
+    font: bold;
+    text-align: center;
+    font-size: 45px;
+    color: #666;
+}
+
+.mandatory {
+    color: white;
+    background-color: red;
+}
+
+.legendText {
+    font-size: 20px;
+    color: #666;
+}
+
+#postsarea {
+    border: 1px solid blue;
+    width: 450px;
+    height: 300px;
+    background-color: #F7EFE1;
+    overflow-y: auto;
+}
+
+#chats {
+    margin: 0px;
+    padding: 5px;
+}
+
+#chats li {
+    list-style: none;
+}
+
+.chat {
+    margin: 3px;
+    padding: 3px;
+    background-color: white;
+    overflow: auto;
+}
+
+.template {
+    display: none;
+}
+
+.round {
+  -moz-border-radius:     5px;
+  -webkit-border-radius:  5px;
+  border-radius:          5px;
+}
+
+.item_img {
+    float: left;
+    margin: 2px;
+}
+
+.item_img img {
+    height: 32px;
+    width: 32px;
+}
+
+.item_msg {
+    float: left;
+}
+
+.footer {
+    background: #3399CC;
+    height: 30px;
+    text-align: center;
+    color: white;
+}
+
+.copytext {
+    font-size: 0.7em;
+}
