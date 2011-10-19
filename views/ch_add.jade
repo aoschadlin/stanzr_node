@@ -1,0 +1,17 @@
+.displayText Registration
+form(method='post', action='/ch')
+    div
+        fieldset
+            legend
+                span.legendText Details for the channel
+            .field
+                label(for="channel[name]") Name:
+                input(type="text", id="channel_name", name="channel[name]", value=channel.name)
+            .field
+                label(for="channel[start_date]") Start date:
+                input(type="text", id="channel_start_date", name="channel[start_date]", value=channel.start_date)
+            .field
+                label(for="channel[start_time]") Start time:
+                input(type="text", id="channel_start_time", name="channel[start_time]", value=channel.start_time)
+        p.buttons
+            input(type="submit", id="channel_add_btn", value="Save")

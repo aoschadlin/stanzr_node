@@ -48,10 +48,6 @@ redisClient.on("error", function (err) {
     console.log("Error " + err);
 });
 
-redisClient.on("end", function (err) {
-    console.log("Redis connection lost " + err);
-});
-
 /**
  * Helper functions
  */
@@ -65,6 +61,7 @@ function loginUser(userSession, userId, nickname) {
   userSession.logged_in = true;
   userSession.user_id = userId;
   userSession.user_nickname = nickname;
+  console.log('loginUser ' + JSON.stringify(userSession));
 }
 
 /*
@@ -74,6 +71,7 @@ function logoutUser(userSession) {
   userSession.logged_in = false;
   userSession.user_id = null;
   userSession.user_nickname = null;
+  console.log('logoutUser ' + JSON.stringify(userSession));
 }
 
 /*
@@ -103,7 +101,7 @@ function loadCompany(companyId, onComplete) {
   redisClient.get('company:' + companyId, function(err, data) {
     var company = null;
     if (! data) {
-      console.log('Failed to load company');
+      console.log('loadCompany : Failed to load company ' + companyId);
     } else {
       company = JSON.parse(data.toString());
     }
@@ -159,7 +157,7 @@ function loadUser(userId, onComplete) {
   redisClient.get('user:' + userId, function(err, data) {
     var user = null;
     if (! data) {
-      console.log('Failed to load user');
+      console.log('loadUser : Failed to load user ' + userId);
     } else {
       user = JSON.parse(data.toString());
     }
@@ -193,31 +191,35 @@ app.get('/register', function(req, res){
 app.post('/register', function(req, res){
   // ZZZ Validate data
   
+  var companyId = null;
+  var userId = null;
+  var localSession = req.session;
+  var localEmail = req.body.user.email;
+  var localPwd = req.body.user.password;
+
   var companyData = {
     name: req.body.company.name,
     email: req.body.company.email,
     logo: req.body.company.logo,
     description: req.body.company.description
   };
-  var companyId;
   saveCompany(companyData, function(companyId) {
     // Encrypt password
-    var encryptedPwd = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
+    var encryptedPwd = crypto.createHash('sha256').update(localPwd).digest("hex");
     var userData = {
-      email: req.body.user.email,
+      email: localEmail,
       password: encryptedPwd,
       companyId: companyId
     }
-    var userId = null;
     saveUser(userData, function(userId) {
-      if (userId != null) {
-        // Log default user in
-        loginUser(req.session, userId, req.body.user.email);
-      }
+      console.log('register : localSession ' + localSession);
+      console.log('register : userId ' + userId);
+      console.log('register : localEmail ' + localEmail);
+      loginUser(localSession, userId, localEmail);
+      
+      res.redirect('/dashboard');
     });
   });
-  
-  res.redirect('/dashboard');
 });
 
 app.get('/signin', function(req, res) {
@@ -232,18 +234,26 @@ app.post('/signin', function(req, res) {
   // Encrypt password
   var passedPwd = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
 
-  loadUserId(req.body.user.email, function(userId) {
-    // Retrieve data for this user
+  var userId = null;
+  var user = null;
+  var localSession = req.session;
+  var localEmail = req.body.user.email;
+  
+  // Retrieve data for this user
+  loadUserId(localEmail, function(userId) {
+    console.log('signin : userId ' + userId);
     loadUser(userId, function(user) {
+      console.log('signin : user ' + user);
+      
       if ((user == null) || (user.password != passedPwd)) {
         var userData = {
-          email: req.body.user.email,
+          email: localEmail,
           password: ''
         };
         res.render('signin', {user: userData});
       } else {
         // Log the user in
-        loginUser(req.session, userId, req.body.user.email);
+        loginUser(localSession, userId, localEmail);
         
         res.redirect('/dashboard');
       }
@@ -266,25 +276,21 @@ app.post('/signup', function(req, res) {
   // Encrypt password
   var encryptedPwd = crypto.createHash('sha256').update(req.body.user.password).digest("hex");
   
+  
   var userData = {
     email: req.body.user.email,
     password: encryptedPwd,
     companyId: ''
   }
-  //var userId = null;
+  var userId = null;
+  var localSession = req.session;
+  var localEmail = req.body.user.email;
   saveUser(userData, function(userId) {
-    if (userId != null) {
-      // Log default user in
-      // loginUser(req.session, userId, req.body.user.email);
-ZZZZ
-  req.session.logged_in = true;
-  req.session.user_id = userId;
-  req.session.user_nickname = req.body.user.email;
-    }
-  });
+    loginUser(localSession, userId, localEmail);
 
-  // ZZZ change this to something real
-  res.redirect('/dashboard')
+    // ZZZ change this to something real
+   res.redirect('/dashboard')
+  });
 });
 
 app.get('/signout', function(req, res) {
@@ -305,9 +311,22 @@ app.get('/ch/:company.:channel', function(req, res) {
   var co = req.params.company;
   var ch = req.params.channel;
   var user = {
-    email: 'andreoschadlin@gmail.com'
+    email: req.session.user_nickname
   };
   res.render('ch', {user: user});
+});
+
+app.get('/ch', function(req, res) {
+  var channel = {
+    name: '',
+    start_date: '',
+    start_time: ''
+  };
+  res.render('ch_add', {channel: channel});
+});
+
+app.post('/ch', function(req, res) {
+  res.render('ch_add', {channel: channel});
 });
 
 

@@ -1,6 +1,7 @@
 .textTitle
     | Channel list
+    | #{JSON.stringify(session)}
 each channel, id in channels
     div
         <a href="/ch/#{id}">#{channel.name}</a>
-<a href="/add_conversation" class="pretty_button_sml">Add conversation</a>
+<a href="/ch" class="pretty_button_sml">Add conversation</a>
