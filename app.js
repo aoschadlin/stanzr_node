@@ -5,7 +5,9 @@
 var express = require('express'),
     redis = require('redis'),
     crypto = require('crypto'),
-    redisSession = require('connect-redis')(express);
+    redisSession = require('connect-redis')(express),
+    http = require('http'),
+    io = require('io');
 
 /**
  * System wide services
@@ -329,6 +331,28 @@ app.post('/ch', function(req, res) {
   res.render('ch_add', {channel: channel});
 });
 
-
 app.listen(4000);
+
+/*
+ * Real time chat functionality
+ */
+var io = io.listen(app)
+  , buffer = [];
+
+io.on('connection', function(client){
+  client.send({ buffer: buffer });
+  client.broadcast({ announcement: client.sessionId + ' connected' });  // Just for debug
+
+  client.on('message', function(message){
+    var msg = { message: [client.sessionId, message] };
+    buffer.push(msg);
+    if (buffer.length > 15) buffer.shift();
+    client.broadcast(msg);
+  });
+
+  client.on('disconnect', function(){
+    client.broadcast({ announcement: client.sessionId + ' disconnected' });  // Just for debug
+  });
+});
+
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
